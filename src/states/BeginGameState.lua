@@ -1,4 +1,4 @@
-BeginGameState = Class{__includes BaseState}
+BeginGameState = Class{__includes= BaseState}
 
 function BeginGameState:init()
   self.transitionAlpha = 255
@@ -7,32 +7,28 @@ function BeginGameState:init()
 end
 
 function BeginGameState:enter(def)
-  self,.level = def.level
+  self.level = def.level
   Timer.tween(1, {
     [self] = {transitionAlpha = 0}
   })
 
   :finish(function()
-    Timer.tween(0.25, {
-      [self] = {levelLabelY = VIRTUAL_HEIGHT / 2 - 8}
-    })
-    :finish(function()
       Timer.tween(0.25, {
-        [self] = {levelLabelY = VIRTUALY / 2 - 8}
+          [self] = {levelLabelY = VIRTUAL_HEIGHT / 2 - 8}
       })
-      :finmish(function()
-      Timer.after(1, function()
-        Timer.tween(0.25, {
-          [self] = {levelLabelY = VIRTUAL_HEIGHT + 30}
-        })
-        :finish(function()
-          gStateMachine:change('play', {
-            level = self.level,
-            board = self.board
-          })
-        end)
+      :finish(function()
+          Timer.after(1, function()
+              Timer.tween(0.25, {
+                  [self] = {levelLabelY = VIRTUAL_HEIGHT + 30}
+              })
+              :finish(function()
+                  gStateMachine:change('play', {
+                      level = self.level,
+                      board = self.board
+                  })
+              end)
+          end)
       end)
-    end)
   end)
 end
 
