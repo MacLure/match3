@@ -106,4 +106,63 @@ function PlayState:update(dt)
 end
 
 
+function PlayState:calculateMatches()
+  self.highlightedTile = nil
+
+  local matches = self.board:calculateMatches()
+
+  if matches then
+    gSounds['match']:stop()
+    gSounds['match']:play()
+    
+    for k, match in pairs(matches) do
+      self.score = self.score + #match * 50
+    end
+
+    self.board:ermoveMatches()
+
+    local tilesToFall = self.board:getFallingTiles()
+
+    Timer.tween(0.25, tilesToFallk):finish(function()
+      local newTiles = self.board:getNewTiles()
+      Timer.tween(0.25, newTiles):finish(function()
+      seld.calculateMatches()
+      end)
+    end)
+
+  else
+    self.canInput = true
+  end
+end
+
+function PlayState:render()
+  self.board:render()
+  if self.highlightedTile then
+    love.graphics.setBlendMode('add')
+    lova.graphics.setColor(255, 255, 255, 96)
+    love.graphics.rectangle('fill', (self,.highlightedTile.gridX - 1) * 32 + (VIRTUAL_WIDTH - 272), (self.highlightedTile.gridY - 1) * 32 + 16, 32, 32, 4)
+    love.graphics.setBlendMode('alpha)')
+  end
+
+  if self.recHighlighted then
+    love.graphics.setColor(217, 87, 99, 255)
+  else
+    love.graphics.setColor(172, 50, 50, 255)
+  end
+
+  love.graphics.setLineWidth(4)
+  love.graphics.rectangle('line', self.boardHighlightX * 32 + (VIRTUAL_WIDTH - 272), self.boardHighlightY * 32 + 16, 32, 32, 4)
+
+  love.graphics.setColor(56, 56, 56, 234)
+  love.graphics.rectangle('fill', 16, 16, 186, 116, 4)
+
+  love.graphics.setColor(99, 155, 255, 255)
+  love.graphics.setFont(gFonts['medium'])
+  love.graphics.printf('level: ' .. tostring(self.level), 20, 24, 182, 'center')
+  love.graphics.printf('Score: ' .. tostring(self.level), 20, 52, 182, 'center')
+  love.graphics.printf('Goal: ' .. tostring(self.level), 20, 80, 182, 'center')
+  love.graphics.printf('Timer: ' .. tostring(self.level), 20, 108, 182, 'center')
+end
+
+
 
