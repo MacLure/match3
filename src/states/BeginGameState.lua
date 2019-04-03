@@ -41,10 +41,10 @@ function BeginGameState:render()
   self.board:render()
 
   love.graphics.setColor(95, 205, 228, 200)
-  love.graphics.rectangle('fill', 0, self.levelLavelY - 8, VIRTUAL_WIDTH, 48)
+  love.graphics.rectangle('fill', 0, self.levelLabelY - 8, VIRTUAL_WIDTH, 48)
   love.graphics.setColor(255, 255, 255, 255)
   love.graphics.setFont(gFonts['large'])
-  love.graphics.printf('Level ' .. tostring(self.level), 0, self.levelLabrelY, VIRTUAL_WIDTH, 'center')
+  love.graphics.printf('Level ' .. tostring(self.level), 0, self.levelLabelY, VIRTUAL_WIDTH, 'center')
 
   love.graphics.setColor(255, 255, 255, self.transitionAlpha)
   love.graphics.rectangle('fill', 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)

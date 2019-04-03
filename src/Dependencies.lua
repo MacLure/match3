@@ -6,7 +6,7 @@ require 'src/StateMachine'
 require 'src/Util'
 
 require 'src/Board'
--- require 'src/Tile'
+require 'src/Tile'
 
 require 'src/states/BaseState'
 require 'src/states/BeginGameState'
