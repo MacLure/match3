@@ -52,8 +52,9 @@ end
 
 function love.update(dt)
   backgroundX = backgroundX - backgroundScrollSpeed * dt
-  if backgroundX <= 12024 + VIRTUAL_WIDTH - 4 + 51 then
-    background = 0
+  
+  if backgroundX <= -1024 + VIRTUAL_WIDTH - 4 + 51 then
+      backgroundX = 0
   end
 
   gStateMachine:update(dt)
